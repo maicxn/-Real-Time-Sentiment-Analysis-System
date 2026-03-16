@@ -1,4 +1,3 @@
-import json
 import random
 import tracemalloc
 import time
@@ -61,7 +60,7 @@ def run_memory_test():
     t0 = time.perf_counter()
     
     # Processa direto na engine (ignorando framework HTTP para testar a memória REAL do algoritmo)
-    result = analyze_feed(payload)
+    analyze_feed(payload)
     
     t1 = time.perf_counter()
     
@@ -70,7 +69,6 @@ def run_memory_test():
     tracemalloc.stop()
     
     peak_mb = peak / (1024 * 1024)
-    current_mb = current / (1024 * 1024)
 
     print(f"RESUMO MEMÓRIA | Pico: {peak_mb:.2f} MB | Tempo: {round((t1 - t0) * 1000, 2)} ms | Status: {'APROVADO' if peak_mb < 20 else 'REPROVADO'}")
 

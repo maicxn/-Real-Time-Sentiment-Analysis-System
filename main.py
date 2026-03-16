@@ -3,6 +3,7 @@ MBRAS — Servidor FastAPI
 Endpoint POST /analyze-feed com validação de input e regras de negócio.
 """
 
+import json
 import re
 from datetime import datetime
 from typing import Any
@@ -107,8 +108,6 @@ def _validate_request(data: dict) -> str | None:
 # Endpoint
 # ─────────────────────────────────────────────
 
-
-import json
 
 @app.post(
     "/analyze-feed",
