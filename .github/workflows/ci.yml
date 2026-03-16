@@ -74,4 +74,4 @@ jobs:
           pip install mypy httpx
 
       - name: Run mypy
-        run: mypy main.py sentiment_analyzer.py --ignore-missing-imports --no-strict
+        run: mypy main.py sentiment_analyzer.py --ignore-missing-imports

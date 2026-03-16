@@ -12,6 +12,9 @@ from analyzers.constants import (
     CANDIDATE_ENGAGEMENT_OVERRIDE,
     FUTURE_TOLERANCE_SECONDS,
     AnalysisResult,
+    FlagsResult,
+    SentimentDistribution,
+    UserInfluence,
 )
 from analyzers.flags import compute_flags
 from analyzers.influence import build_influence_ranking
@@ -119,7 +122,7 @@ def _compute_all_sentiments(messages: list[dict]) -> dict[str, str]:
     return sentiments
 
 
-def _build_distribution(sentiments: dict[str, str]) -> dict[str, float]:
+def _build_distribution(sentiments: dict[str, str]) -> SentimentDistribution:
     """Calcula a distribuição percentual excluindo o meta-sentimento."""
     pos = sum(1 for s in sentiments.values() if s == "positive")
     neg = sum(1 for s in sentiments.values() if s == "negative")
@@ -127,15 +130,18 @@ def _build_distribution(sentiments: dict[str, str]) -> dict[str, float]:
     total = pos + neg + neu
 
     if total > 0:
-        return {
+        dist: SentimentDistribution = {
             "positive": round(pos / total * 100, 1),
             "negative": round(neg / total * 100, 1),
             "neutral": round(neu / total * 100, 1),
         }
-    return {"positive": 0.0, "negative": 0.0, "neutral": 0.0}
+        return dist
+    
+    empty_dist: SentimentDistribution = {"positive": 0.0, "negative": 0.0, "neutral": 0.0}
+    return empty_dist
 
 
-def _compute_engagement(messages: list[dict], flags: dict) -> float:
+def _compute_engagement(messages: list[dict], flags: FlagsResult) -> float:
     """Calcula o engagement_score global com superposição de candidate_awareness."""
     if flags["candidate_awareness"]:
         return CANDIDATE_ENGAGEMENT_OVERRIDE
@@ -147,7 +153,7 @@ def _compute_engagement(messages: list[dict], flags: dict) -> float:
     return round((total_reactions + total_shares) / total_views, 4)
 
 
-def _build_user_influence(messages: list[dict]) -> list[dict]:
+def _build_user_influence(messages: list[dict]) -> list[UserInfluence]:
     """Agrega estatísticas por usuário e constrói o ranking de influência."""
     user_stats: dict[str, dict] = defaultdict(
         lambda: {"reactions": 0, "shares": 0, "views": 0, "is_mbras": False}
