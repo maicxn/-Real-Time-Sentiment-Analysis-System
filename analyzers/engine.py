@@ -75,7 +75,9 @@ def analyze_feed(data: dict) -> AnalysisResult:
 
     logger.info(
         "Feed analisado: %d mensagens, %.2fms, sentimento=%s",
-        len(filtered), elapsed_ms, distribution,
+        len(filtered),
+        elapsed_ms,
+        distribution,
     )
 
     return {

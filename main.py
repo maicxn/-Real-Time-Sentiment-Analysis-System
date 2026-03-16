@@ -114,9 +114,7 @@ def _validate_request(data: dict) -> str | None:
     openapi_extra={
         "requestBody": {
             "content": {
-                "application/json": {
-                    "schema": FeedRequest.model_json_schema()
-                }
+                "application/json": {"schema": FeedRequest.model_json_schema()}
             },
             "required": True,
         }
@@ -129,7 +127,10 @@ async def analyze_feed_endpoint(request: Request) -> Any:
     except json.JSONDecodeError:
         return JSONResponse(
             status_code=400,
-            content={"error": "JSON inválido ou corpo da requisição vazio", "code": "INVALID_JSON"},
+            content={
+                "error": "JSON inválido ou corpo da requisição vazio",
+                "code": "INVALID_JSON",
+            },
         )
 
     time_window = body.get("time_window_minutes")
@@ -152,4 +153,3 @@ async def analyze_feed_endpoint(request: Request) -> Any:
     result = analyze_feed(body)
 
     return {"analysis": result}
-

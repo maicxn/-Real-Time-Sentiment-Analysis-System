@@ -79,7 +79,10 @@ def compute_influence(
 
     logger.debug(
         "Influência de %s: seguidores=%d, engajamento=%.4f, score=%.4f",
-        user_id, followers, engagement_rate, score,
+        user_id,
+        followers,
+        engagement_rate,
+        score,
     )
 
     return round(score, 4)

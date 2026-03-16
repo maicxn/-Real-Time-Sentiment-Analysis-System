@@ -93,7 +93,10 @@ def compute_sentiment(content: str, is_mbras: bool) -> tuple[float, str]:
 
     logger.debug(
         "Sentimento para '%s': score=%.3f → %s (mbras=%s)",
-        content, score, classification, is_mbras,
+        content,
+        score,
+        classification,
+        is_mbras,
     )
 
     return score, classification

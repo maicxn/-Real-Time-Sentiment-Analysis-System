@@ -9,24 +9,56 @@ from typing import TypedDict
 
 # ─────────────────────────────── Léxico ───────────────────────────────
 
-POSITIVE_WORDS: frozenset[str] = frozenset({
-    "adorei", "gostei", "excelente", "otimo", "perfeito", "bom",
-    "maravilhoso", "incrivel", "fantastico", "sensacional", "top",
-})
+POSITIVE_WORDS: frozenset[str] = frozenset(
+    {
+        "adorei",
+        "gostei",
+        "excelente",
+        "otimo",
+        "perfeito",
+        "bom",
+        "maravilhoso",
+        "incrivel",
+        "fantastico",
+        "sensacional",
+        "top",
+    }
+)
 
-NEGATIVE_WORDS: frozenset[str] = frozenset({
-    "ruim", "terrivel", "pessimo", "horrivel", "odiei", "detestei",
-    "nojento", "decepcionante",
-})
+NEGATIVE_WORDS: frozenset[str] = frozenset(
+    {
+        "ruim",
+        "terrivel",
+        "pessimo",
+        "horrivel",
+        "odiei",
+        "detestei",
+        "nojento",
+        "decepcionante",
+    }
+)
 
-INTENSIFIERS: frozenset[str] = frozenset({
-    "muito", "super", "extremamente", "bastante", "demais",
-    "incrivelmente", "absurdamente",
-})
+INTENSIFIERS: frozenset[str] = frozenset(
+    {
+        "muito",
+        "super",
+        "extremamente",
+        "bastante",
+        "demais",
+        "incrivelmente",
+        "absurdamente",
+    }
+)
 
-NEGATIONS: frozenset[str] = frozenset({
-    "nao", "nunca", "jamais", "nem", "tampouco",
-})
+NEGATIONS: frozenset[str] = frozenset(
+    {
+        "nao",
+        "nunca",
+        "jamais",
+        "nem",
+        "tampouco",
+    }
+)
 
 
 # ─────────────────────────── Regras de Sentimento ───────────────────────────
@@ -133,6 +165,7 @@ CANDIDATE_ENGAGEMENT_OVERRIDE: float = 9.42
 
 class SentimentDistribution(TypedDict):
     """Distribuição percentual das classificações de sentimento."""
+
     positive: float
     negative: float
     neutral: float
@@ -140,12 +173,14 @@ class SentimentDistribution(TypedDict):
 
 class UserInfluence(TypedDict):
     """Entrada da pontuação de influência para um único usuário."""
+
     user_id: str
     influence_score: float
 
 
 class FlagsResult(TypedDict):
     """Flags especiais de detecção."""
+
     mbras_employee: bool
     special_pattern: bool
     candidate_awareness: bool
@@ -153,6 +188,7 @@ class FlagsResult(TypedDict):
 
 class AnalysisResult(TypedDict):
     """Resposta completa da análise."""
+
     sentiment_distribution: SentimentDistribution
     engagement_score: float
     trending_topics: list[str]

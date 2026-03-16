@@ -78,7 +78,9 @@ def _detect_burst(user_times: dict[str, list[datetime]]) -> bool:
         for i in range(len(times_sorted)):
             count = 1
             for j in range(i + 1, len(times_sorted)):
-                if (times_sorted[j] - times_sorted[i]).total_seconds() <= BURST_WINDOW_SECONDS:
+                if (
+                    times_sorted[j] - times_sorted[i]
+                ).total_seconds() <= BURST_WINDOW_SECONDS:
                     count += 1
                 else:
                     break
@@ -101,9 +103,7 @@ def _detect_alternation(
 
     for sents in user_sentiments.values():
         if len(sents) >= ALTERNATION_MIN_MESSAGES:
-            is_alternating = all(
-                sents[i] != sents[i - 1] for i in range(1, len(sents))
-            )
+            is_alternating = all(sents[i] != sents[i - 1] for i in range(1, len(sents)))
             if is_alternating:
                 return True
     return False
@@ -118,7 +118,9 @@ def _detect_synchronized(all_times: list[datetime]) -> bool:
     for i in range(len(sorted_times)):
         count = 1
         for j in range(i + 1, len(sorted_times)):
-            if (sorted_times[j] - sorted_times[i]).total_seconds() <= SYNC_WINDOW_SECONDS:
+            if (
+                sorted_times[j] - sorted_times[i]
+            ).total_seconds() <= SYNC_WINDOW_SECONDS:
                 count += 1
             else:
                 break
