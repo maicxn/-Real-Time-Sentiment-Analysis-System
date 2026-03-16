@@ -1,6 +1,4 @@
-import json
 from fastapi.testclient import TestClient
-from datetime import datetime, timezone
 
 from main import app
 
@@ -97,7 +95,9 @@ def test_flags_especiais_and_meta():
     assert analysis["engagement_score"] == 9.42
     # meta message excluded from distribution
     dist = analysis["sentiment_distribution"]
-    assert dist["positive"] == 0.0 and dist["negative"] == 0.0 and dist["neutral"] == 0.0
+    assert (
+        dist["positive"] == 0.0 and dist["negative"] == 0.0 and dist["neutral"] == 0.0
+    )
 
 
 def test_intensifier_orphan_neutral():
@@ -250,7 +250,9 @@ def test_unicode_normalization_edge_case():
     assert r.status_code == 200
     analysis = r.json()["analysis"]
     # Should trigger special Unicode case (followers = 4242)
-    user_score = next(u for u in analysis["influence_ranking"] if u["user_id"] == "user_café")
+    user_score = next(
+        u for u in analysis["influence_ranking"] if u["user_id"] == "user_café"
+    )
     # The exact score will depend on engagement calculation, but followers should be 4242
 
 
@@ -335,7 +337,7 @@ def test_sentiment_trending_cross_validation():
                 "views": 50,
             },
             {
-                "id": "msg_cross2", 
+                "id": "msg_cross2",
                 "content": "terrível produto",  # negative sentiment
                 "timestamp": "2025-09-10T10:01:00Z",
                 "user_id": "user_cross2",
@@ -343,7 +345,7 @@ def test_sentiment_trending_cross_validation():
                 "reactions": 1,
                 "shares": 0,
                 "views": 25,
-            }
+            },
         ],
         "time_window_minutes": 30,
     }
@@ -354,8 +356,10 @@ def test_sentiment_trending_cross_validation():
     # Positive hashtags should rank higher due to sentiment multiplier (1.2 vs 0.8)
     if "#positivo" in trending and "#negativo" in trending:
         pos_idx = trending.index("#positivo")
-        neg_idx = trending.index("#negativo") 
-        assert pos_idx < neg_idx, "Positive hashtags should rank higher than negative ones"
+        neg_idx = trending.index("#negativo")
+        assert pos_idx < neg_idx, (
+            "Positive hashtags should rank higher than negative ones"
+        )
 
 
 def test_long_hashtag_logarithmic_decay():
