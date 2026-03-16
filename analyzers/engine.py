@@ -136,8 +136,12 @@ def _build_distribution(sentiments: dict[str, str]) -> SentimentDistribution:
             "neutral": round(neu / total * 100, 1),
         }
         return dist
-    
-    empty_dist: SentimentDistribution = {"positive": 0.0, "negative": 0.0, "neutral": 0.0}
+
+    empty_dist: SentimentDistribution = {
+        "positive": 0.0,
+        "negative": 0.0,
+        "neutral": 0.0,
+    }
     return empty_dist
 
 
