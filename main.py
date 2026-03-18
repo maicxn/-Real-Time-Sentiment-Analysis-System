@@ -114,13 +114,12 @@ if "$defs" in feed_schema and "Message" in feed_schema["$defs"]:
     feed_schema["properties"]["messages"]["items"] = feed_schema["$defs"]["Message"]
     del feed_schema["$defs"]
 
+
 @app.post(
     "/analyze-feed",
     openapi_extra={
         "requestBody": {
-            "content": {
-                "application/json": {"schema": feed_schema}
-            },
+            "content": {"application/json": {"schema": feed_schema}},
             "required": True,
         }
     },

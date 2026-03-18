@@ -32,12 +32,17 @@ Para testar:
 4. Clique no botão azul **"Execute"** para enviar os dados para a sua API e ver a análise de sentimentos retornada!
 
 ### 4. Executar os Testes Automatizados (Opcional)
-Este projeto conta com uma suíte de testes preparada no `pytest`. Para garantir que toda a lógica de negócio e da API está operando perfeitamente, você pode rodar (com o servidor `uvicorn` desligado ou em outro terminal):
-    
+Este projeto conta com um script de testes de carga e de casos específicos. Para garantir que toda a lógica de negócio e da API está operando perfeitamente, você deve rodar com o servidor `uvicorn` **ligado** (aberto em outro terminal):
+
+```bash
+python -m test_all_cases.py
+```
+ou
 ```bash
 python -m pytest
 ```
-*Você verá os testes passando no console, confirmando que tudo está em ordem.*
+```
+*Você verá a simulação de envios e o ranking de influenciadores passando no console, confirmando que tudo está em ordem.*
 
 ---
 
