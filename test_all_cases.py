@@ -270,7 +270,7 @@ def build_rules_payload(size: int) -> dict:
     return {"messages": messages, "time_window_minutes": 60}
 
 
-def test_load(size: int):
+def run_load_test(size: int):
     print("\n" + "=" * 60)
     print(f"2. TESTANDO CASOS ESPECIAIS & CARGA DE {size} MENSAGENS")
     print("=" * 60)
@@ -318,5 +318,5 @@ def test_load(size: int):
 
 if __name__ == "__main__":
     test_validations()
-    test_load(1000)
-    test_load(10000)
+    run_load_test(1000)
+    run_load_test(10000)

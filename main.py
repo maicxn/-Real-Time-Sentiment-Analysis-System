@@ -109,12 +109,17 @@ def _validate_request(data: dict) -> str | None:
 # ─────────────────────────────────────────────
 
 
+feed_schema = FeedRequest.model_json_schema()
+if "$defs" in feed_schema and "Message" in feed_schema["$defs"]:
+    feed_schema["properties"]["messages"]["items"] = feed_schema["$defs"]["Message"]
+    del feed_schema["$defs"]
+
 @app.post(
     "/analyze-feed",
     openapi_extra={
         "requestBody": {
             "content": {
-                "application/json": {"schema": FeedRequest.model_json_schema()}
+                "application/json": {"schema": feed_schema}
             },
             "required": True,
         }
